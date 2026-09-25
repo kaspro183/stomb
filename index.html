@@ -394,6 +394,8 @@
     const prevLabel = mintBtn.textContent;
     try {
       mintBtn.textContent = 'Loading…';
+      const bufferMod = await import('https://cdn.jsdelivr.net/npm/buffer@6/+esm');
+      window.Buffer = bufferMod.Buffer; // bitcoinjs-lib expects Node's Buffer, not a plain Uint8Array
       const [bitcoin, runelibMod] = await Promise.all([
         import('https://cdn.jsdelivr.net/npm/bitcoinjs-lib@6/+esm'),
         import('https://cdn.jsdelivr.net/npm/runelib@latest/+esm'),
@@ -430,7 +432,8 @@
 
       const [block, tx] = RUNE_ID.split(':').map(Number);
       const mintstone = new Runestone([], none(), some(new RuneId(block, tx)), some(1));
-      psbt.addOutput({ script: mintstone.encipher(), value: 0 });               // output 0: OP_RETURN Runestone
+      const runeScript = bufferMod.Buffer.from(mintstone.encipher());
+      psbt.addOutput({ script: runeScript, value: 0 });                        // output 0: OP_RETURN Runestone
       psbt.addOutput({ address: userOrdinalsAddress, value: POSTAGE });          // output 1: carries your minted STOMB (pointer=1)
       if (change > 546) {
         psbt.addOutput({ address: userPaymentAddress, value: change });         // output 2: change back to you
