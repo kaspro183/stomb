@@ -192,7 +192,7 @@
       <div>
         <div class="kicker">CRC-20 Launchpad · Bitcoin L1</div>
         <h1 class="display">STOMB</h1>
-        <p class="lede">The flagship token of the STOMB CRC-20 Launchpad. 21,000,000 units, no pre-allocation. Every STOMB is minted as a public , visible and verifiable by any public indexer — and anyone can launch their own CRC-20 token here too.</p>
+        <p class="lede">The flagship token of the STOMB CRC-20 Launchpad. 21,000,000 units, no pre-allocation. Every STOMB is minted as a public Bitcoin Rune, visible and verifiable by any public indexer — and anyone can launch their own CRC-20 token here too.</p>
         <div class="hero-cta">
           <button class="btn btn-primary" onclick="document.getElementById('mint').scrollIntoView({behavior:'smooth'})">Go to mint</button>
           <button class="btn btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works</button>
@@ -224,13 +224,13 @@
       <div class="panel">
         <h2>Enter mint amount</h2>
         <div class="field">
-          <label for="amt">STOMB amount</label>
+          <label for="amt">Number of mints</label>
           <div class="amountrow">
-            <input id="amt" type="number" min="1" max="1000" step="1" value="1000">
-            <span>STOMB</span>
+            <input id="amt" type="number" min="1" max="200" step="1" value="1">
+            <span>× 1,000 STOMB</span>
           </div>
         </div>
-        <p class="curvenote">Starts at <span id="basePriceNote">2.38</span> sats/STOMB. Price increases 0.1% for every 5,000 STOMB minted — you always pay the current price at signing, shown live on the right.</p>
+        <p class="curvenote">Each mint transaction creates a fixed 1,000 STOMB — that's set by the rune's on-chain terms, not adjustable. Starts at <span id="basePriceNote">2.38</span> sats/STOMB in service fee; the fee increases 0.1% for every 5,000 STOMB minted, shown live on the right.</p>
 
         <label class="feegridlabel">Network fee</label>
         <div class="feegrid" id="feeGrid">
@@ -298,7 +298,7 @@
 <section class="create" id="create">
   <div class="wrap">
     <h2 class="display">Launch your own token <span class="lp-tag">Coming soon</span></h2>
-    <p class="createlede">Token creation opens after the STOMB mint completes. Same fair-mint mechanics, on-chain crc-20 approach — available to other creators once STOMB's launch is done.</p>
+    <p class="createlede">Token creation opens after the STOMB mint completes. Same fair-mint mechanics, same on-chain Runes approach — available to other creators once STOMB's launch is done.</p>
     <div class="panel createpanel" style="text-align:center; padding:40px 28px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-dim); margin-bottom:6px;">STATUS</div>
       <div style="font-family:'Big Shoulders Display',sans-serif; font-weight:900; font-size:22px; color:var(--ember); margin-bottom:14px;">Locked until STOMB sells out</div>
@@ -313,8 +313,8 @@
     <div class="steplist">
       <div class="stepitem">
         <div class="num mono">01</div>
-        <h3>You mint a crc-20 e</h3>
-        <p>Every STOMB mint sends a Bitcoin transaction carrying on crc-20 (an OP_RETURN message following the crc-20 protocol) that references the STOMB etching and mints your allocation directly to your own wallet. That crc-20 is what public indexers read to recognize your balance (see the risk notice below for what this means for CRC-20 branding).</p>
+        <h3>You mint a Rune</h3>
+        <p>Every STOMB mint sends a Bitcoin transaction carrying a Runestone (an OP_RETURN message following the Runes protocol) that references the STOMB etching and mints your allocation directly to your own wallet. That Runestone is what public indexers read to recognize your balance (see the risk notice below for what this means for CRC-20 branding).</p>
       </div>
       <div class="stepitem">
         <div class="num mono">02</div>
@@ -324,7 +324,7 @@
       <div class="stepitem">
         <div class="num mono">03</div>
         <h3>Indexers validate</h3>
-        <p>Your STOMB balance is recognized by public crc-20 indexers (unisat, ordinals.com) as soon as your mint transaction is confirmed on-chain.</p>
+        <p>Your STOMB balance is recognized by public Runes indexers (unisat, ordinals.com) as soon as your mint transaction is confirmed on-chain.</p>
       </div>
     </div>
   </div>
@@ -342,12 +342,12 @@
       <div class="rmitem">
         <div class="rmphase mono">Phase 2</div>
         <h3>Indexer &amp; holders</h3>
-        <p>Live holder table and supply tracking via a verified third-party crc-20 indexer.</p>
+        <p>Live holder table and supply tracking via a verified third-party Runes indexer.</p>
       </div>
       <div class="rmitem">
         <div class="rmphase mono">Phase 3</div>
         <h3>Marketplace listing</h3>
-        <p>List STOMB on existing Ordinals and crc-20 marketplaces so holders can trade once minted out.</p>
+        <p>List STOMB on existing Ordinals marketplaces so holders can trade once minted out.</p>
       </div>
       <div class="rmitem">
         <div class="rmphase mono">Phase 4</div>
@@ -356,7 +356,7 @@
       </div>
     </div>
     <div class="riskbox">
-      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the crc-20 standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. The launch fee is a service fee, not an investment contract. Only mint with funds you can afford to lose. Do your own research.
+      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the Runes standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. The launch fee is a service fee, not an investment contract. Only mint with funds you can afford to lose. Do your own research.
     </div>
   </div>
 </section>
@@ -368,7 +368,11 @@
   </div>
 </footer>
 
-<script>
+<script type="module">
+  import { request, AddressPurpose } from 'https://cdn.jsdelivr.net/npm/sats-connect@4/+esm';
+
+  const RUNE_NAME = 'STOMB'; // confirmed etched on Bitcoin mainnet — id 968575:856
+
   const connectBtn = document.getElementById('connectBtn');
   const mintBtn = document.getElementById('mintBtn');
   const notice = document.getElementById('notice');
@@ -378,30 +382,59 @@
     notice.classList.add('show');
   }
 
+  let userPaymentAddress = null;
+  let userOrdinalsAddress = null;
+
   async function connectWallet(){
-    if (typeof window.unisat === 'undefined') {
-      showNotice("UniSat wallet not detected. Install the UniSat extension to connect a Bitcoin wallet.");
-      return;
-    }
     try {
-      const accounts = await window.unisat.requestAccounts();
-      if (accounts && accounts.length) {
-        connectBtn.textContent = accounts[0].slice(0,6) + '…' + accounts[0].slice(-4);
-        mintBtn.textContent = 'Mint (transaction not wired yet)';
+      const response = await request('getAddresses', {
+        purposes: [AddressPurpose.Payment, AddressPurpose.Ordinals],
+      });
+      if (response.status === 'success') {
+        userPaymentAddress = response.result.addresses.find(a => a.purpose === AddressPurpose.Payment)?.address || null;
+        userOrdinalsAddress = response.result.addresses.find(a => a.purpose === AddressPurpose.Ordinals)?.address || userPaymentAddress;
+        if (!userPaymentAddress) { showNotice('Wallet connected but no payment address was returned.'); return; }
+        connectBtn.textContent = userPaymentAddress.slice(0,6) + '…' + userPaymentAddress.slice(-4);
+        mintBtn.textContent = 'Mint STOMB';
         mintBtn.disabled = false;
-        try {
-          const fee = await window.unisat.getNetwork ? null : null;
-        } catch(e) {}
-        showNotice("Wallet connected. Sending the mint transaction isn't wired up on this version of the page yet.");
+        showNotice('Wallet connected.');
+      } else {
+        showNotice('Connection refused or unavailable.');
       }
     } catch (err) {
-      showNotice("Connection refused or unavailable.");
+      showNotice('No compatible Bitcoin wallet detected (UniSat, Xverse, or another Sats Connect–compatible wallet).');
     }
   }
 
   connectBtn.addEventListener('click', connectWallet);
-  mintBtn.addEventListener('click', () => {
-    showNotice("This is a preview page: no mint transaction is sent at this time.");
+
+  mintBtn.addEventListener('click', async () => {
+    if (!userPaymentAddress) { showNotice('Connect your wallet first.'); return; }
+    mintBtn.disabled = true;
+    const previousLabel = mintBtn.textContent;
+    mintBtn.textContent = 'Confirm in your wallet…';
+    try {
+      const response = await request('runes_mint', {
+        runeName: RUNE_NAME,
+        repeats: currentRepeats,
+        refundAddress: userPaymentAddress,
+        destinationAddress: userOrdinalsAddress,
+        feeRate: selectedSatVb,
+        appServiceFee: currentLaunchFeeSats,
+        appServiceFeeAddress: TREASURY_ADDRESS,
+        network: 'Mainnet',
+      });
+      if (response.status === 'success') {
+        showNotice('Mint order submitted — funding tx: ' + response.result.fundTransactionId + '. Your STOMB will arrive once the mint transaction(s) confirm.');
+      } else {
+        showNotice('Mint failed or was rejected: ' + (response.error?.message || 'unknown error'));
+      }
+    } catch (err) {
+      showNotice('Mint failed: ' + (err?.message || 'unknown error'));
+    } finally {
+      mintBtn.disabled = false;
+      mintBtn.textContent = previousLabel;
+    }
   });
 
   // --- Launch fee calculator (bonding curve) ---
@@ -435,17 +468,27 @@
   const feeEstEl = document.getElementById('feeEst');
   const basePriceNoteEl = document.getElementById('basePriceNote');
 
-  const TX_VSIZE_ESTIMATE = 150; // vB, rough estimate for a typical reveal tx
+  const MINT_AMOUNT_PER_REPEAT = 1000; // fixed by the STOMB etching's mint terms, not adjustable
+  const TX_VSIZE_ESTIMATE = 150; // vB, rough estimate for a typical mint tx
+
+  let currentLaunchFeeSats = 0;
+  let currentNetworkFeeSats = 0;
+  let currentRepeats = 1;
 
   function updateMintSummary(){
-    const amount = Math.max(0, Number(amtInput.value) || 0);
+    const repeats = Math.max(1, Math.round(Number(amtInput.value) || 1));
+    const amount = repeats * MINT_AMOUNT_PER_REPEAT;
     const price = currentPricePerToken();
     const launchFeeSats = Math.round(amount * price);
-    const networkFeeSats = Math.round(TX_VSIZE_ESTIMATE * selectedSatVb);
-    const totalSats = launchFeeSats + POSTAGE_SATS + networkFeeSats;
+    const networkFeeSats = Math.round(TX_VSIZE_ESTIMATE * selectedSatVb * repeats);
+    const totalSats = launchFeeSats + POSTAGE_SATS * repeats + networkFeeSats;
+
+    currentRepeats = repeats;
+    currentLaunchFeeSats = launchFeeSats;
+    currentNetworkFeeSats = networkFeeSats;
 
     launchFeeEl.textContent = launchFeeSats.toLocaleString('en-US') + ' sats';
-    postageEl.textContent = POSTAGE_SATS.toLocaleString('en-US') + ' sats';
+    postageEl.textContent = (POSTAGE_SATS * repeats).toLocaleString('en-US') + ' sats';
     feeEstEl.textContent = networkFeeSats.toLocaleString('en-US') + ' sats';
     sumStombEl.textContent = amount.toLocaleString('en-US') + ' STOMB';
     sumTotalEl.textContent = (totalSats / 100000000).toFixed(8) + ' BTC';
