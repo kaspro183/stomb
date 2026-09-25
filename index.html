@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-27E8bWmO.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Ck9jbdJF.css">
+  <script type="module" crossorigin src="/assets/index-wumng1Ep.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-_5hHarVY.css">
 </head>
 <body>
 
@@ -65,7 +65,7 @@
         <div class="rowline"><span>Amount per mint</span><span>1,000 STOMB</span></div>
         <div class="rowline"><span>Max mints</span><span>21,000</span></div>
         <div class="rowline"><span>Max supply</span><span>21,000,000 STOMB</span></div>
-        <p class="curvenote">Minting itself happens on UniSat's own mint page for STOMB, using their tested infrastructure — this site doesn't build or sign the mint transaction. No launch fee is currently collected; you only pay UniSat's standard network fee.</p>
+        <p class="curvenote">Minting happens directly from this page — your wallet builds and signs the mint transaction here, no redirect. You pay only the Bitcoin network fee; no launch fee is currently collected.</p>
 
         <button class="btn btn-primary mintbtn" id="mintBtn">Connect wallet to mint</button>
         <div class="notice" id="notice"></div>
@@ -163,7 +163,7 @@
       </div>
     </div>
     <div class="riskbox">
-      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the Runes standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. Minting happens through UniSat's own infrastructure, outside this site's control. Only mint with funds you can afford to lose. Do your own research.
+      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the Runes standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. Minting builds and signs a real Bitcoin transaction directly in your wallet — verify the amounts shown before every signature. Only mint with funds you can afford to lose. Do your own research.
     </div>
   </div>
 </section>
@@ -171,9 +171,21 @@
 <footer>
   <div class="wrap footgrid">
     <div class="brand" style="font-size:18px;"><span class="seal" style="width:22px;height:22px;font-size:9px;">₿</span>STOMB</div>
-    <p class="footnote">Preview page. The wallet-connect flow is live; the Mint button opens UniSat's own mint page for the actual transaction. No fee is collected by this site — you only pay UniSat's standard network fee. The "Create a Token" flow isn't wired up yet.</p>
+    <p class="footnote">The wallet-connect and mint flows are live and build a real Bitcoin transaction in your browser. No fee is collected by this site — you only pay the Bitcoin network fee. The "Create a Token" flow isn't wired up yet.</p>
   </div>
 </footer>
+
+<div class="modal-overlay" id="confirmOverlay">
+  <div class="modal-box">
+    <h3 id="confirmTitle">Confirm mint</h3>
+    <div class="modal-rows" id="confirmRows"></div>
+    <p class="modal-note">Your wallet will show the final amounts next — check them before signing.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+      <button class="btn btn-primary" id="confirmOk">Continue</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
