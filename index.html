@@ -222,51 +222,19 @@
   <div class="wrap">
     <div class="press-grid">
       <div class="panel">
-        <h2>Enter mint amount</h2>
-        <div class="field">
-          <label for="amt">Number of mints</label>
-          <div class="amountrow">
-            <input id="amt" type="number" min="1" max="200" step="1" value="1">
-            <span>× 1,000 STOMB</span>
-          </div>
-        </div>
-        <p class="curvenote">Each mint transaction creates a fixed 1,000 STOMB — that's set by the rune's on-chain terms, not adjustable. Starts at <span id="basePriceNote">2.38</span> sats/STOMB in service fee; the fee increases 0.1% for every 5,000 STOMB minted, shown live on the right.</p>
-
-        <label class="feegridlabel">Network fee</label>
-        <div class="feegrid" id="feeGrid">
-          <button type="button" class="feetier" data-satvb="1">
-            <span class="feename">Low</span><span class="feesat mono">1 sat/vB</span><span class="feenote">Lower priority</span>
-          </button>
-          <button type="button" class="feetier selected" data-satvb="3">
-            <span class="feename">Standard</span><span class="feesat mono">3 sat/vB</span><span class="feenote">Balanced</span>
-          </button>
-          <button type="button" class="feetier" data-satvb="6">
-            <span class="feename">Fast</span><span class="feesat mono">6 sat/vB</span><span class="feenote">Higher priority</span>
-          </button>
-        </div>
-        <p class="feedisclaimer">Indicative estimates based on typical mint tx size — actual fee is set by your wallet at signing.</p>
+        <h2>Mint STOMB</h2>
+        <div class="rowline"><span>Amount per mint</span><span>1,000 STOMB</span></div>
+        <div class="rowline"><span>Max mints</span><span>21,000</span></div>
+        <div class="rowline"><span>Max supply</span><span>21,000,000 STOMB</span></div>
+        <p class="curvenote">Minting itself happens on UniSat's own mint page for STOMB, using their tested infrastructure — this site doesn't build or sign the mint transaction. No launch fee is currently collected; you only pay UniSat's standard network fee.</p>
 
         <button class="btn btn-primary mintbtn" id="mintBtn">Connect wallet to mint</button>
         <div class="notice" id="notice"></div>
       </div>
 
       <div class="panel">
-        <h2>Mint summary</h2>
-        <div class="summarybig">
-          <div class="summarylabel">Estimated STOMB received</div>
-          <div class="summaryval mono" id="sumStomb">1,000 STOMB</div>
-        </div>
-        <div class="rowline"><span>Payment asset</span><span>BTC</span></div>
-        <div class="rowline"><span>Payment total</span><span id="sumTotal">— BTC</span></div>
-        <div class="rowline"><span>Launch fee (to treasury)</span><span id="launchFee">2,381 sats</span></div>
-        <div class="rowline"><span>Rune output (dust)</span><span id="postage">546 sats</span></div>
-        <div class="rowline"><span>Network fee</span><span id="feeEst">450 sats</span></div>
-        <div class="rowline"><span>Change returned to you</span><span>0 sats</span></div>
-        <details class="paydest">
-          <summary>Payment destination</summary>
-          <div class="mono" id="treasuryDisplay">—</div>
-        </details>
-        <div class="gaugewrap" style="margin-top:22px;">
+        <h2>Progress</h2>
+        <div class="gaugewrap" style="margin-top:8px;">
           <div class="linebar"><div class="linebarfill" id="lineFill"></div></div>
           <div class="gaugepct mono" id="gaugeSub2">0 / 21,000,000 STOMB · 0%</div>
         </div>
@@ -356,7 +324,7 @@
       </div>
     </div>
     <div class="riskbox">
-      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the Runes standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. The launch fee is a service fee, not an investment contract. Only mint with funds you can afford to lose. Do your own research.
+      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the Runes standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. Minting happens through UniSat's own infrastructure, outside this site's control. Only mint with funds you can afford to lose. Do your own research.
     </div>
   </div>
 </section>
@@ -364,7 +332,7 @@
 <footer>
   <div class="wrap footgrid">
     <div class="brand" style="font-size:18px;"><span class="seal" style="width:22px;height:22px;font-size:9px;">₿</span>STOMB</div>
-    <p class="footnote">Preview page. The actual mint and deploy flows (wallet connection and real mint transaction) aren't wired up yet — no funds are collected by this version. The launch fee shown for STOMB is a service fee paid to a treasury address alongside your mint transaction, not a protocol-enforced charge — it carries no guarantee of value or liquidity.</p>
+    <p class="footnote">Preview page. The wallet-connect flow is live; the Mint button opens UniSat's own mint page for the actual transaction. No fee is collected by this site — you only pay UniSat's standard network fee. The "Create a Token" flow isn't wired up yet.</p>
   </div>
 </footer>
 
@@ -408,112 +376,17 @@
 
   connectBtn.addEventListener('click', connectWallet);
 
-  // The actual mint transaction is built and broadcast through Sats Connect
-  // (a shared Bitcoin-wallet library also used by UniSat/Xverse), loaded only
-  // when you click Mint — so if this library fails to load, it shows a clear
-  // error here instead of breaking the rest of the page.
-  mintBtn.addEventListener('click', async () => {
+  // Minting itself happens on UniSat's own tested mint page — building and
+  // signing the Runestone mint transaction ourselves for UniSat specifically
+  // is not something that could be safely verified end-to-end here, so this
+  // links out to UniSat's real, working mint interface for STOMB instead.
+  const UNISAT_MINT_URL = 'https://uniscan.cc/runes/detail/STOMB';
+
+  mintBtn.addEventListener('click', () => {
     if (!userPaymentAddress) { showNotice('Connect your wallet first.'); return; }
-    mintBtn.disabled = true;
-    const previousLabel = mintBtn.textContent;
-    mintBtn.textContent = 'Loading…';
-    try {
-      const satsConnect = await import('https://cdn.jsdelivr.net/npm/sats-connect@4/+esm');
-      const { request, AddressPurpose } = satsConnect;
-      mintBtn.textContent = 'Confirm in your wallet…';
-      const response = await request('runes_mint', {
-        runeName: RUNE_NAME,
-        repeats: currentRepeats,
-        refundAddress: userPaymentAddress,
-        destinationAddress: userOrdinalsAddress,
-        feeRate: selectedSatVb,
-        appServiceFee: currentLaunchFeeSats,
-        appServiceFeeAddress: TREASURY_ADDRESS,
-        network: 'Mainnet',
-      });
-      if (response.status === 'success') {
-        showNotice('Mint order submitted — funding tx: ' + response.result.fundTransactionId + '. Your STOMB will arrive once the mint transaction(s) confirm.');
-      } else {
-        showNotice('Mint failed or was rejected: ' + (response.error?.message || 'unknown error'));
-      }
-    } catch (err) {
-      showNotice('Mint failed to start: ' + (err?.message || 'the mint library could not be loaded') + '. Try reloading the page.');
-    } finally {
-      mintBtn.disabled = false;
-      mintBtn.textContent = previousLabel;
-    }
+    window.open(UNISAT_MINT_URL, '_blank', 'noopener');
+    showNotice('Opening the STOMB mint page on UniSat in a new tab — mint there with your connected wallet.');
   });
-
-  // --- Launch fee calculator (bonding curve) ---
-  // Base price set so the full 21,000,000 STOMB supply raises roughly 0.5 BTC
-  // at the starting price; price then increases 0.1% per 5,000 STOMB minted.
-  // This fee is NOT enforced by the Runes protocol or any covenant — it's a service fee
-  // paid to the treasury address in the SAME signed transaction as the
-  // mint transaction (non-custodial: you sign once, you receive STOMB immediately —
-  // there is no locked/delayed allocation held by this site).
-  const TARGET_SATS = 50000000; // 0.5 BTC
-  const STOMB_MAX_SUPPLY = 21000000;
-  const BASE_SATS_PER_STOMB = TARGET_SATS / STOMB_MAX_SUPPLY; // 4.7619 sats/token flat baseline
-  const CURVE_STEP = 5000;      // STOMB minted per price step
-  const CURVE_RATE = 0.001;     // +0.1% per step
-  const POSTAGE_SATS = 546;     // standard dust-limit output carrying your Rune balance (stays with you, not a fee)
-  const TREASURY_ADDRESS = 'bc1qjfeaxflzrgkzhqcl2navk5l4jxhw3estfp5utf';
-
-  let mintedSupply = 0; // updated by loadTokenStats() from the real indexer once hosted
-  let selectedSatVb = 3;
-
-  function currentPricePerToken(){
-    const steps = Math.floor(mintedSupply / CURVE_STEP);
-    return BASE_SATS_PER_STOMB * Math.pow(1 + CURVE_RATE, steps);
-  }
-
-  const amtInput = document.getElementById('amt');
-  const launchFeeEl = document.getElementById('launchFee');
-  const sumStombEl = document.getElementById('sumStomb');
-  const sumTotalEl = document.getElementById('sumTotal');
-  const postageEl = document.getElementById('postage');
-  const feeEstEl = document.getElementById('feeEst');
-  const basePriceNoteEl = document.getElementById('basePriceNote');
-
-  const MINT_AMOUNT_PER_REPEAT = 1000; // fixed by the STOMB etching's mint terms, not adjustable
-  const TX_VSIZE_ESTIMATE = 150; // vB, rough estimate for a typical mint tx
-
-  let currentLaunchFeeSats = 0;
-  let currentNetworkFeeSats = 0;
-  let currentRepeats = 1;
-
-  function updateMintSummary(){
-    const repeats = Math.max(1, Math.round(Number(amtInput.value) || 1));
-    const amount = repeats * MINT_AMOUNT_PER_REPEAT;
-    const price = currentPricePerToken();
-    const launchFeeSats = Math.round(amount * price);
-    const networkFeeSats = Math.round(TX_VSIZE_ESTIMATE * selectedSatVb * repeats);
-    const totalSats = launchFeeSats + POSTAGE_SATS * repeats + networkFeeSats;
-
-    currentRepeats = repeats;
-    currentLaunchFeeSats = launchFeeSats;
-    currentNetworkFeeSats = networkFeeSats;
-
-    launchFeeEl.textContent = launchFeeSats.toLocaleString('en-US') + ' sats';
-    postageEl.textContent = (POSTAGE_SATS * repeats).toLocaleString('en-US') + ' sats';
-    feeEstEl.textContent = networkFeeSats.toLocaleString('en-US') + ' sats';
-    sumStombEl.textContent = amount.toLocaleString('en-US') + ' STOMB';
-    sumTotalEl.textContent = (totalSats / 100000000).toFixed(8) + ' BTC';
-    basePriceNoteEl.textContent = price.toFixed(2);
-  }
-  amtInput.addEventListener('input', updateMintSummary);
-
-  document.querySelectorAll('.feetier').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.feetier').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedSatVb = Number(btn.dataset.satvb);
-      updateMintSummary();
-    });
-  });
-
-  document.getElementById('treasuryDisplay').textContent = TREASURY_ADDRESS;
-  updateMintSummary();
 
   // --- Third-party indexer (Hiro Runes API) ---
   // NB: in the Claude preview, outbound network calls are blocked by the
@@ -538,9 +411,6 @@
       document.getElementById('mintedStat').textContent = fmt(minted);
       document.getElementById('lineFill').style.width = pct.toFixed(2) + '%';
       document.getElementById('gaugeSub2').textContent = `${fmt(minted)} / ${fmt(MAX_SUPPLY)} STOMB · ${pct.toFixed(1)}%`;
-
-      mintedSupply = minted;
-      updateMintSummary();
     } catch (err) {
       // API unreachable from this environment — the page stays on its default values
     }
