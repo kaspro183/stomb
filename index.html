@@ -376,87 +376,17 @@
 
   connectBtn.addEventListener('click', connectWallet);
 
-  // Mint transaction, built in-page and signed by your connected wallet.
-  // This is UNVERIFIED by testing — Kevin, test with the smallest possible
-  // amount first and check every figure the wallet shows before signing.
+  // Minting happens on UniSat's own tested mint page. Building the raw PSBT
+  // ourselves (bitcoinjs-lib via CDN, no bundler) hit an unresolved bundling
+  // error across two fix attempts with no way to see the real cause — not
+  // safe to keep guessing on code that would sign real Bitcoin transactions.
   const RUNE_ID = '968575:856'; // STOMB, confirmed etched on Bitcoin mainnet
-  const UNISAT_MINT_URL = 'https://uniscan.cc/runes/detail/STOMB'; // fallback if this fails
-  const POSTAGE = 546;   // dust-limit output that will carry your minted STOMB
-  const FEE_RATE = 5;    // sats/vB — conservative flat estimate
+  const UNISAT_MINT_URL = 'https://uniscan.cc/runes/detail/STOMB';
 
-  function estimateFeeSats(inputCount){
-    return (150 * inputCount + 150) * FEE_RATE; // generous overestimate, errs toward overpaying rather than a stuck tx
-  }
-
-  mintBtn.addEventListener('click', async () => {
+  mintBtn.addEventListener('click', () => {
     if (!userPaymentAddress) { showNotice('Connect your wallet first.'); return; }
-    mintBtn.disabled = true;
-    const prevLabel = mintBtn.textContent;
-    try {
-      mintBtn.textContent = 'Loading…';
-      const bufferMod = await import('https://cdn.jsdelivr.net/npm/buffer@6/+esm');
-      window.Buffer = bufferMod.Buffer; // bitcoinjs-lib expects Node's Buffer, not a plain Uint8Array
-      const [bitcoin, runelibMod] = await Promise.all([
-        import('https://cdn.jsdelivr.net/npm/bitcoinjs-lib@6/+esm'),
-        import('https://cdn.jsdelivr.net/npm/runelib@latest/+esm'),
-      ]);
-      const { Runestone, RuneId, none, some } = runelibMod;
-      const network = bitcoin.networks.bitcoin;
-
-      mintBtn.textContent = 'Fetching your UTXOs…';
-      const utxoRes = await fetch(`https://mempool.space/api/address/${userPaymentAddress}/utxo`);
-      if (!utxoRes.ok) throw new Error('could not fetch your UTXOs from mempool.space');
-      const utxos = (await utxoRes.json()).sort((a, b) => b.value - a.value);
-      if (!utxos.length) throw new Error('no spendable BTC found in your connected address');
-
-      let inputs = [];
-      let total = 0;
-      for (const u of utxos) {
-        inputs.push(u);
-        total += u.value;
-        if (total >= POSTAGE + estimateFeeSats(inputs.length)) break;
-      }
-      const fee = estimateFeeSats(inputs.length);
-      const change = total - POSTAGE - fee;
-      if (change < 0) throw new Error('not enough BTC in your wallet to cover postage and fees');
-
-      const scriptPubKey = bitcoin.address.toOutputScript(userPaymentAddress, network);
-      const psbt = new bitcoin.Psbt({ network });
-      for (const u of inputs) {
-        psbt.addInput({
-          hash: u.txid,
-          index: u.vout,
-          witnessUtxo: { script: scriptPubKey, value: u.value },
-        });
-      }
-
-      const [block, tx] = RUNE_ID.split(':').map(Number);
-      const mintstone = new Runestone([], none(), some(new RuneId(block, tx)), some(1));
-      const runeScript = bufferMod.Buffer.from(mintstone.encipher());
-      psbt.addOutput({ script: runeScript, value: 0 });                        // output 0: OP_RETURN Runestone
-      psbt.addOutput({ address: userOrdinalsAddress, value: POSTAGE });          // output 1: carries your minted STOMB (pointer=1)
-      if (change > 546) {
-        psbt.addOutput({ address: userPaymentAddress, value: change });         // output 2: change back to you
-      }
-
-      const psbtHex = psbt.toHex();
-
-      const proceed = window.confirm(
-        `About to mint 1,000 STOMB.\n\nInputs used: ${inputs.length}\nPostage: ${POSTAGE} sats (stays with you)\nEstimated network fee: ${fee} sats\nChange back to you: ${Math.max(change, 0)} sats\n\nYour wallet will show the final amounts next — check them before signing. Continue?`
-      );
-      if (!proceed) { showNotice('Cancelled.'); return; }
-
-      mintBtn.textContent = 'Confirm in your wallet…';
-      const signedHex = await window.unisat.signPsbt(psbtHex);
-      mintBtn.textContent = 'Broadcasting…';
-      const txid = await window.unisat.pushPsbt(signedHex);
-      showNotice('Mint transaction sent — txid: ' + txid + '. Your STOMB will show once it confirms.');
-    } catch (err) {
-      showNotice('Mint failed: ' + (err?.message || 'unknown error') + '. You can also mint directly on UniSat: ' + UNISAT_MINT_URL);
-    } finally {
-      mintBtn.disabled = false;
-      mintBtn.textContent = prevLabel;
-    }
+    window.open(UNISAT_MINT_URL, '_blank', 'noopener');
+    showNotice('Opening the STOMB mint page on UniSat in a new tab — mint there with your connected wallet.');
   });
 
   // --- Third-party indexer (Hiro Runes API) ---
