@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/main-BLhYPYm1.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style-CAcp7_J2.css">
+  <script type="module" crossorigin src="/assets/main-tsVseMde.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-rDGy50ZY.css">
 </head>
 <body>
 
@@ -38,12 +38,16 @@
     <!-- HERO -->
     <section class="hero wrap">
       <div class="hero-copy">
-        <span class="eyebrow">Create memecoins on Bitcoin</span>
+        <div class="eyebrow-row">
+          <span class="eyebrow">Create memecoins on Bitcoin</span>
+          <span class="eyebrow eyebrow-fair">Fair launch</span>
+        </div>
         <h1 class="stamp">MINT IT<br>YOURSELF.<br><span class="accent">RIGHT HERE.</span></h1>
         <p class="lede">
           StombFun mints STOMB straight from your wallet — one signature, no middleman, no redirect to another site.
           Anyone will be able to launch their own memecoin on Bitcoin the same way.
         </p>
+        <p class="fineprint mono fair-note">Fair launch: no presale, no team allocation, no early access — everyone mints on the same terms, first come first served.</p>
         <div class="hero-stats">
           <div class="hero-stat">
             <div class="hero-stat-num stamp">21,000,000</div>
@@ -73,13 +77,20 @@
       <div class="panel mint-panel">
         <div class="panel-head">
           <h2 class="stamp">Mint panel</h2>
-          <span class="tag tag-live mono">LIVE</span>
+          <div class="panel-head-tags">
+            <span class="tag tag-live mono">LIVE</span>
+            <span class="tag tag-fair mono">FAIR LAUNCH</span>
+          </div>
         </div>
 
         <div class="rowlines">
           <div class="rowline">
             <span class="mono rl-label">Amount per mint</span>
             <span class="mono rl-value">1,000 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Presale / team allocation</span>
+            <span class="mono rl-value">None — 0 STOMB</span>
           </div>
           <div class="rowline">
             <span class="mono rl-label">Max mints</span>
@@ -97,6 +108,29 @@
             <span class="mono rl-label">Your STOMB balance</span>
             <span class="mono rl-value accent" id="userBalanceValue">0 STOMB</span>
           </div>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-head">
+            <span class="mono rl-label">Number of mints</span>
+            <span class="mono slider-count" id="mintCountValue">1</span>
+          </div>
+          <input type="range" id="mintCountSlider" class="mint-slider" min="1" max="100" value="1" step="1">
+          <div class="slider-totals">
+            <div class="rowline">
+              <span class="mono rl-label">Total STOMB</span>
+              <span class="mono rl-value" id="totalStombValue">1,000 STOMB</span>
+            </div>
+            <div class="rowline">
+              <span class="mono rl-label">Total mint fee</span>
+              <span class="mono rl-value" id="totalFeeValue">1,191 sats</span>
+            </div>
+            <div class="rowline">
+              <span class="mono rl-label">Est. network fees</span>
+              <span class="mono rl-value" id="totalNetworkFeeValue">~1,700 sats</span>
+            </div>
+          </div>
+          <p class="fineprint mono" id="batchNotice" style="display:none;">Each mint is its own Bitcoin transaction — you'll approve them one by one in your wallet, back to back.</p>
         </div>
 
         <button class="btn btn-mint stamp" id="mintBtn" disabled>Connect wallet to mint</button>
