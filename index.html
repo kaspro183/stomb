@@ -1,192 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>STOMB Launchpad — Fair Mint CRC-20</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-CPFRC8aY.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-_5hHarVY.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stombfun.garden — Create &amp; mint memecoins on Bitcoin</title>
+  <meta name="description" content="stombfun.garden — mint STOMB and, soon, your own memecoins on Bitcoin. Non-custodial, wallet-signed, on-page." />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-BXrxJEL9.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-C4hmYYHT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BMKDK8yg.css">
 </head>
 <body>
 
-<header>
-  <div class="nav">
-    <div class="brand"><span class="seal">₿</span>STOMB<span class="lp-tag">Launchpad</span></div>
-    <div class="navlinks">
-      <a href="#mint">Mint</a>
-      <a href="#create">Create a Token</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#how">How it works</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">S</span>
+        <span class="brand-word">stombfun<span class="accent">.garden</span></span>
+      </a>
+      <nav class="nav">
+        <a href="#mint" class="pill pill-accent">Mint</a>
+        <a href="#progress" class="pill">Progress</a>
+        <a href="#create" class="pill">Create</a>
+        <a href="#how" class="pill">How it works</a>
+        <a href="#roadmap" class="pill">Roadmap</a>
+      </nav>
+      <button class="btn btn-dark" id="connectBtn">Connect wallet</button>
     </div>
-    <button class="btn btn-ghost" id="connectBtn">Connect Wallet</button>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="kicker">CRC-20 Launchpad · Bitcoin L1</div>
-        <h1 class="display">STOMB</h1>
-        <p class="lede">The flagship token of the STOMB CRC-20 Launchpad. 21,000,000 units, no pre-allocation. Every STOMB is minted as a public Bitcoin CRC-20 protocol, visible and verifiable by any public indexer — and anyone can launch their own CRC-20 token here too.</p>
-        <div class="hero-cta">
-          <button class="btn btn-primary" onclick="document.getElementById('mint').scrollIntoView({behavior:'smooth'})">Go to mint</button>
-          <button class="btn btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works</button>
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Create memecoins on Bitcoin</span>
+        <h1 class="stamp">MINT IT<br>YOURSELF.<br><span class="accent">RIGHT HERE.</span></h1>
+        <p class="lede">
+          StombFun mints STOMB straight from your wallet — one signature, no middleman, no redirect to another site.
+          Anyone will be able to launch their own memecoin on Bitcoin the same way.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num stamp">21,000,000</div>
+            <div class="hero-stat-label mono">MAX SUPPLY</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num stamp">1,000</div>
+            <div class="hero-stat-label mono">PER MINT</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num stamp">21,000</div>
+            <div class="hero-stat-label mono">MAX MINTS</div>
+          </div>
         </div>
       </div>
-      <div class="stampwrap">
-        <svg class="stamp" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="150" cy="150" r="140" fill="none" stroke="var(--line)" stroke-width="2"/>
-          <circle cx="150" cy="150" r="118" fill="none" stroke="var(--ember)" stroke-width="2"/>
-          <circle cx="150" cy="150" r="118" fill="none" stroke="var(--ember-dim)" stroke-width="10" stroke-dasharray="1 6" stroke-linecap="round"/>
-          <text x="150" y="140" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="54" fill="var(--text)">STOMB</text>
-          <text x="150" y="172" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="var(--text-dim)">TICK: STOMB</text>
-          <text x="150" y="192" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="var(--text-dim)">MAX 21,000,000</text>
-        </svg>
+      <div class="hero-art">
+        <div class="coin-badge">
+          <span class="mono coin-badge-tag">RUNES · $STOMB</span>
+          <span class="stamp coin-badge-big">₡</span>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="statbar">
-      <div><div class="statlabel">Max supply</div><div class="statval">21,000,000</div></div>
-      <div><div class="statlabel">Minted</div><div class="statval" id="mintedStat">0</div></div>
-      <div><div class="statlabel">Limit / mint</div><div class="statval">1,000 STOMB</div></div>
-    </div>
-  </div>
-</section>
+    <!-- MINT -->
+    <section id="mint" class="section wrap">
+      <div class="panel mint-panel">
+        <div class="panel-head">
+          <h2 class="stamp">Mint panel</h2>
+          <span class="tag tag-live mono">LIVE</span>
+        </div>
 
-<section class="press" id="mint">
-  <div class="wrap">
-    <div class="press-grid">
-      <div class="panel">
-        <h2>Mint STOMB</h2>
-        <div class="rowline"><span>Amount per mint</span><span>1,000 STOMB</span></div>
-        <div class="rowline"><span>Max mints</span><span>21,000</span></div>
-        <div class="rowline"><span>Max supply</span><span>21,000,000 STOMB</span></div>
-        <div class="rowline" id="userBalanceRow" style="display:none;"><span>Your STOMB balance</span><span id="userBalanceValue">0 STOMB</span></div>
-        <p class="curvenote">Minting happens directly from this page — your wallet builds and signs the mint transaction here, no redirect. Each mint includes a flat 1,191 sat service fee alongside the Bitcoin network fee, shown before you sign.</p>
+        <div class="rowlines">
+          <div class="rowline">
+            <span class="mono rl-label">Amount per mint</span>
+            <span class="mono rl-value">1,000 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Max mints</span>
+            <span class="mono rl-value">21,000</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Max supply</span>
+            <span class="mono rl-value">21,000,000 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Mint fee</span>
+            <span class="mono rl-value">1,191 sats</span>
+          </div>
+          <div class="rowline" id="userBalanceRow" style="display:none;">
+            <span class="mono rl-label">Your STOMB balance</span>
+            <span class="mono rl-value accent" id="userBalanceValue">0 STOMB</span>
+          </div>
+        </div>
 
-        <button class="btn btn-primary mintbtn" id="mintBtn">Connect wallet to mint</button>
-        <div class="notice" id="notice"></div>
+        <button class="btn btn-mint stamp" id="mintBtn" disabled>Connect wallet to mint</button>
+        <p class="notice mono" id="mintNotice"></p>
+        <p class="fineprint mono">Signs &amp; broadcasts from your own wallet. Nothing held on this site.</p>
       </div>
+    </section>
 
+    <!-- PROGRESS -->
+    <section id="progress" class="section wrap">
       <div class="panel">
-        <h2>Progress</h2>
-        <div class="gaugewrap" style="margin-top:8px;">
+        <h2 class="stamp">Progress</h2>
+        <div class="gaugewrap">
           <div class="linebar"><div class="linebarfill" id="lineFill"></div></div>
           <div class="gaugepct mono" id="gaugeSub2">0 / 21,000,000 STOMB · 0%</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="holders" id="holders">
-  <div class="wrap">
-    <h2 class="display">Holders</h2>
-    <div class="panel" style="padding:0; overflow:hidden;">
-      <div style="overflow-x:auto;">
-        <table class="holdtable" id="holdTable">
-          <thead>
-            <tr><th>Rank</th><th>Address</th><th>STOMB balance</th><th>% supply</th></tr>
-          </thead>
-          <tbody id="holdBody">
-          </tbody>
-        </table>
+    <!-- HOLDERS -->
+    <section id="holders" class="section wrap">
+      <div class="panel">
+        <h2 class="stamp">Holders</h2>
+        <div class="empty-state mono">Holder leaderboard opens once minting is live on-chain in force. Check back soon.</div>
       </div>
-      <div class="holdEmpty" id="holdEmpty">
-        No holders yet — this table populates automatically once the STOMB indexer is connected and the first mints are confirmed on-chain.
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="create" id="create">
-  <div class="wrap">
-    <h2 class="display">Launch your own token <span class="lp-tag">Coming soon</span></h2>
-    <p class="createlede">Token creation opens after the STOMB mint completes. Same fair-mint mechanics, same on-chain CRC-20 approach — available to other creators once STOMB's launch is done.</p>
-    <div class="panel createpanel" style="text-align:center; padding:40px 28px;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-dim); margin-bottom:6px;">STATUS</div>
-      <div style="font-family:'Big Shoulders Display',sans-serif; font-weight:900; font-size:22px; color:var(--ember); margin-bottom:14px;">Locked until STOMB sells out</div>
-      <p style="font-size:14px; color:var(--text-dim); margin:0; max-width:44ch; margin:0 auto;">Follow the STOMB mint progress above — this section unlocks for everyone once the full supply is minted.</p>
-    </div>
-  </div>
-</section>
+    <!-- CREATE A TOKEN -->
+    <section id="create" class="section wrap">
+      <div class="panel panel-locked">
+        <div class="panel-head">
+          <h2 class="stamp">Create your own memecoin</h2>
+          <span class="tag tag-soon mono">COMING SOON</span>
+        </div>
+        <p class="lede-sm">
+          The next step for StombFun: a builder that lets anyone etch and fair-mint their own Bitcoin memecoin —
+          same non-custodial, wallet-signed flow as STOMB, no code required.
+        </p>
+        <button class="btn btn-ghost stamp" disabled>Launch a token — locked</button>
+      </div>
+    </section>
 
-<section class="steps" id="how">
-  <div class="wrap">
-    <h2 class="display">How it works</h2>
-    <div class="steplist">
-      <div class="stepitem">
-        <div class="num mono">01</div>
-        <h3>You mint a Rune</h3>
-        <p>Every STOMB mint sends a Bitcoin transaction  (an OP_RETURN message following the CRC-20 protocol) that references the STOMB etching and mints your allocation directly to your own wallet. That Runestone is what public indexers read to recognize your balance (see the risk notice below for what this means for CRC-20 branding).</p>
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section wrap">
+      <h2 class="stamp section-title">How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num mono">01</span>
+          <h3 class="stamp">Connect your wallet</h3>
+          <p>StombFun talks directly to your UniSat wallet. Nothing is custodied — your keys never leave your device.</p>
+        </div>
+        <div class="step">
+          <span class="step-num mono">02</span>
+          <h3 class="stamp">Build the transaction</h3>
+          <p>The page builds a real Bitcoin transaction on the Runes standard — a Runestone output, your postage, and the mint fee.</p>
+        </div>
+        <div class="step">
+          <span class="step-num mono">03</span>
+          <h3 class="stamp">Sign &amp; broadcast</h3>
+          <p>Your wallet shows the exact amounts before you sign. One signature mints and sends — no third-party step.</p>
+        </div>
       </div>
-      <div class="stepitem">
-        <div class="num mono">02</div>
-        <h3>You pay the network</h3>
-        <p>No contract collects funds. You only pay the Bitcoin transaction fee and, where applicable, a service fee from the launchpad.</p>
-      </div>
-      <div class="stepitem">
-        <div class="num mono">03</div>
-        <h3>Indexers validate</h3>
-        <p>Your STOMB balance is recognized by public CRC-20 indexers (unisat, ordinals.com) as soon as your mint transaction is confirmed on-chain.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="roadmap" id="roadmap">
-  <div class="wrap">
-    <h2 class="display">Roadmap</h2>
-    <div class="rmlist">
-      <div class="rmitem">
-        <div class="rmphase mono">Phase 1</div>
-        <h3>Fair mint live</h3>
-        <p>STOMB mint open to everyone, no pre-allocation, no private sale. Same rules for every wallet.</p>
+    <!-- ROADMAP + RISK -->
+    <section id="roadmap" class="section wrap">
+      <h2 class="stamp section-title">Roadmap</h2>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <span class="tag tag-live mono">NOW</span>
+          <p>Fair-mint STOMB directly on-page, non-custodial, wallet-signed.</p>
+        </div>
+        <div class="roadmap-item">
+          <span class="tag tag-soon mono">NEXT</span>
+          <p>Holder leaderboard and live on-chain progress tracking.</p>
+        </div>
+        <div class="roadmap-item">
+          <span class="tag tag-soon mono">LATER</span>
+          <p>Create-your-own-memecoin builder — etch and fair-mint new Bitcoin tokens, no code.</p>
+        </div>
       </div>
-      <div class="rmitem">
-        <div class="rmphase mono">Phase 2</div>
-        <h3>Indexer &amp; holders</h3>
-        <p>Live holder table and supply tracking via a verified third-party CRC-20 indexer.</p>
-      </div>
-      <div class="rmitem">
-        <div class="rmphase mono">Phase 3</div>
-        <h3>Marketplace listing</h3>
-        <p>List STOMB on existing Ordinals marketplaces so holders can trade once minted out.</p>
-      </div>
-      <div class="rmitem">
-        <div class="rmphase mono">Phase 4</div>
-        <h3>Launchpad opens</h3>
-        <p>Wire the "Create a Token" flow so other creators can deploy their own tokens through STOMB Launchpad.</p>
-      </div>
-    </div>
-    <div class="riskbox">
-      <strong>Risk disclosure:</strong> STOMB is an experimental CRC-20 token (built on the CRC-20 standard) with no protocol-level enforcement, no guarantee of value, liquidity, or exchange listing. Minting builds and signs a real Bitcoin transaction directly in your wallet — verify the amounts shown before every signature. Only mint with funds you can afford to lose. Do your own research.
-    </div>
-  </div>
-</section>
 
-<footer>
-  <div class="wrap footgrid">
-    <div class="brand" style="font-size:18px;"><span class="seal" style="width:22px;height:22px;font-size:9px;">₿</span>STOMB</div>
-    <p class="footnote">The wallet-connect and mint flows are live and build a real Bitcoin transaction in your browser. Each mint includes a flat 1,191 sat service fee plus the Bitcoin network fee, shown before you sign. The "Create a Token" flow isn't wired up yet.</p>
-  </div>
-</footer>
+      <div class="risk mono">
+        Risk disclosure: STOMB is an experimental CRC-20 token (built on the Runes standard) with no protocol-level
+        enforcement, no guarantee of value, liquidity, or exchange listing. Minting builds and signs a real Bitcoin
+        transaction directly in your wallet — verify the amounts shown before every signature. Only mint with funds
+        you can afford to lose. Do your own research.
+      </div>
+    </section>
 
-<div class="modal-overlay" id="confirmOverlay">
-  <div class="modal-box">
-    <h3 id="confirmTitle">Confirm mint</h3>
-    <div class="modal-rows" id="confirmRows"></div>
-    <p class="modal-note">Your wallet will show the final amounts next — check them before signing.</p>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
-      <button class="btn btn-primary" id="confirmOk">Continue</button>
+  </main>
+
+  <footer class="footer wrap mono">
+    <span>stombfun.garden — experimental CRC-20 token, built on the Runes standard</span>
+    <span>Do your own research</span>
+  </footer>
+
+  <!-- CONFIRM MODAL -->
+  <div class="modal-overlay" id="confirmOverlay">
+    <div class="modal-box">
+      <h3 id="confirmTitle" class="stamp">Confirm mint</h3>
+      <div class="modal-rows" id="confirmRows"></div>
+      <p class="modal-note">Your wallet will show the final amounts next — check them before signing.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+        <button class="btn btn-mint" id="confirmOk">Continue</button>
+      </div>
     </div>
   </div>
-</div>
 
 </body>
 </html>
