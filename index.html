@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/main-ZMAXRjFU.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style-ZcfmiW-i.css">
+  <script type="module" crossorigin src="/assets/main-D0apzxdC.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-Bm4oUblg.css">
 </head>
 <body>
 
@@ -74,6 +74,7 @@
 
     <!-- MINT -->
     <section id="mint" class="section wrap">
+      <div class="mint-send-row">
       <div class="panel mint-panel">
         <div class="panel-head">
           <h2 class="stamp">Mint panel</h2>
@@ -143,6 +144,33 @@
         <p class="notice mono" id="mintNotice"></p>
         <p class="fineprint mono">Signs &amp; broadcasts from your own wallet. Nothing held on this site.</p>
       </div>
+
+      <div class="panel send-panel">
+        <div class="panel-head">
+          <h2 class="stamp">Send STOMB</h2>
+          <span class="tag tag-fair mono">MULTI-SEND</span>
+        </div>
+        <p class="fineprint mono" style="text-align:left; margin: -6px 0 16px;">Send STOMB you already hold to several addresses in one signed transaction.</p>
+
+        <div id="sendRecipients" class="send-recipients"></div>
+        <button type="button" class="btn btn-ghost stamp" id="addRecipientBtn" style="width:100%; margin: 4px 0 16px;">+ Add recipient</button>
+
+        <div class="rowlines" style="margin-bottom: 14px;">
+          <div class="rowline">
+            <span class="mono rl-label">Total STOMB to send</span>
+            <span class="mono rl-value" id="sendTotalValue">0 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Est. network fee</span>
+            <span class="mono rl-value" id="sendFeeValue">~0 sats</span>
+          </div>
+        </div>
+
+        <button class="btn btn-mint stamp" id="sendBtn" disabled>Connect wallet to send</button>
+        <p class="notice mono" id="sendNotice"></p>
+        <p class="fineprint mono">One Rune transfer transaction, multiple edicts. Signs &amp; broadcasts from your own wallet.</p>
+      </div>
+      </div>
     </section>
 
     <!-- BONDING CURVE -->
@@ -196,7 +224,6 @@
           <div class="linebar"><div class="linebarfill" id="lineFill"></div></div>
           <div class="gaugepct mono" id="gaugeSub2">0 / 21,000,000 STOMB · 0%</div>
         </div>
-        <p class="fineprint mono" id="holdersCount" style="display:none;"></p>
       </div>
     </section>
 
@@ -204,7 +231,8 @@
     <section id="holders" class="section wrap">
       <div class="panel">
         <h2 class="stamp">Holders</h2>
-        <div class="empty-state mono">Holder leaderboard opens once minting is live on-chain in force. Check back soon.</div>
+        <div class="mono" id="holdersCount" style="display:none; font-size: 28px; font-weight: 700; margin: 6px 0 4px;"></div>
+        <div class="empty-state mono" id="holdersEmptyState">Holder leaderboard opens once minting is live on-chain in force. Check back soon.</div>
       </div>
     </section>
 
