@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/main-DtGjGR4G.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style-1DQtsfPx.css">
+  <script type="module" crossorigin src="/assets/main-DAxx6UIz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-ZcfmiW-i.css">
 </head>
 <body>
 
@@ -47,7 +47,7 @@
           StombFun mints STOMB straight from your wallet — one signature, no middleman, no redirect to another site.
           Anyone will be able to launch their own memecoin on Bitcoin the same way.
         </p>
-        <p class="fineprint mono fair-note">Fair launch: no presale, no team allocation, no early access — everyone mints on the same terms, first come first served.</p>
+        <p class="fineprint mono fair-note">Fair launch: no presale, no team allocation, no early access — same open bonding-curve price for everyone, first come first served.</p>
         <div class="hero-stats">
           <div class="hero-stat">
             <div class="hero-stat-num stamp">21,000,000</div>
@@ -102,7 +102,11 @@
           </div>
           <div class="rowline">
             <span class="mono rl-label">Mint fee</span>
-            <span class="mono rl-value">1,700 sats</span>
+            <span class="mono rl-value" id="mintFeeValue">1,700 sats</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Fee curve</span>
+            <span class="mono rl-value">+5% supply → step up, ×10 by the last mint</span>
           </div>
           <div class="rowline" id="userBalanceRow" style="display:none;">
             <span class="mono rl-label">Your STOMB balance</span>
@@ -132,11 +136,55 @@
           </div>
           <p class="fineprint mono" id="batchNotice" style="display:none;">Each mint is its own Bitcoin transaction — you'll approve them one by one in your wallet, back to back.</p>
           <p class="fineprint mono chain-warn" id="chainNotice" style="display:none;">Batches over 20 mints chain unconfirmed transactions — we automatically switch to a faster fee tier for this size so the whole batch confirms before hitting Bitcoin's unconfirmed-chain limit.</p>
+          <p class="fineprint mono" id="curveNotice">Bonding curve — step 1/20 (0.0% minted): mint fee is 1,700 sats, rising every 5% minted.</p>
         </div>
 
         <button class="btn btn-mint stamp" id="mintBtn" disabled>Connect wallet to mint</button>
         <p class="notice mono" id="mintNotice"></p>
         <p class="fineprint mono">Signs &amp; broadcasts from your own wallet. Nothing held on this site.</p>
+      </div>
+    </section>
+
+    <!-- BONDING CURVE -->
+    <section id="curve" class="section wrap">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="stamp">Bonding curve — reward for early believers</h2>
+          <span class="tag tag-live mono">×10 OVER THE MINT</span>
+        </div>
+        <p class="lede-sm" style="margin-top: -6px;">
+          The mint fee starts at 1,700 sats and steps up every 5% of the supply minted, ending ×10 higher at
+          17,000 sats on the very last mints. Mint early, pay less — it's our way of rewarding the people who
+          show up first and believe in STOMB before anyone else does.
+        </p>
+        <div class="curve-chart" id="curveChart">
+          <div class="curve-bar" data-step="0" style="height:14px;"></div>
+          <div class="curve-bar" data-step="1" style="height:16px;"></div>
+          <div class="curve-bar" data-step="2" style="height:18px;"></div>
+          <div class="curve-bar" data-step="3" style="height:20px;"></div>
+          <div class="curve-bar" data-step="4" style="height:23px;"></div>
+          <div class="curve-bar" data-step="5" style="height:26px;"></div>
+          <div class="curve-bar" data-step="6" style="height:29px;"></div>
+          <div class="curve-bar" data-step="7" style="height:33px;"></div>
+          <div class="curve-bar" data-step="8" style="height:37px;"></div>
+          <div class="curve-bar" data-step="9" style="height:42px;"></div>
+          <div class="curve-bar" data-step="10" style="height:47px;"></div>
+          <div class="curve-bar" data-step="11" style="height:53px;"></div>
+          <div class="curve-bar" data-step="12" style="height:60px;"></div>
+          <div class="curve-bar" data-step="13" style="height:68px;"></div>
+          <div class="curve-bar" data-step="14" style="height:76px;"></div>
+          <div class="curve-bar" data-step="15" style="height:86px;"></div>
+          <div class="curve-bar" data-step="16" style="height:97px;"></div>
+          <div class="curve-bar" data-step="17" style="height:110px;"></div>
+          <div class="curve-bar" data-step="18" style="height:124px;"></div>
+          <div class="curve-bar" data-step="19" style="height:140px;"></div>
+        </div>
+        <div class="curve-axis mono">
+          <span>0% minted<br>1,700 sats</span>
+          <span>50% minted<br>5,712 sats</span>
+          <span>100% minted<br>17,000 sats</span>
+        </div>
+        <p class="fineprint mono" id="curveNoticeSection">Bonding curve — step 1/20 (0.0% minted): mint fee is 1,700 sats, rising every 5% minted.</p>
       </div>
     </section>
 
