@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stombfun.garden — Create &amp; mint memecoins on Bitcoin</title>
+  <meta name="description" content="stombfun.garden — mint STOMB and, soon, your own memecoins on Bitcoin. Non-custodial, wallet-signed, on-page." />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-BXrxJEL9.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-DmGo01zi.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style--3H5YJt5.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">S</span>
+        <span class="brand-word">stombfun<span class="accent">.garden</span></span>
+      </a>
+      <nav class="nav">
+        <a href="#mint" class="pill pill-accent">Mint</a>
+        <a href="#progress" class="pill">Progress</a>
+        <a href="#create" class="pill">Create</a>
+        <a href="marketplace.html" class="pill">Marketplace</a>
+        <a href="#utility" class="pill">Utility</a>
+        <a href="#how" class="pill">How it works</a>
+        <a href="#roadmap" class="pill">Roadmap</a>
+        <a href="https://x.com/Stombfungarden" target="_blank" rel="noopener" class="pill pill-x" aria-label="Follow on X">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>Follow</span>
+        </a>
+        <button class="btn btn-dark" id="connectBtn">Connect wallet</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow-row">
+          <span class="eyebrow">Create memecoins on Bitcoin</span>
+          <span class="eyebrow eyebrow-fair">Fair launch</span>
+        </div>
+        <h1 class="stamp">MINT IT<br>YOURSELF.<br><span class="accent">RIGHT HERE.</span></h1>
+        <p class="lede">
+          StombFun mints STOMB straight from your wallet — one signature, no middleman, no redirect to another site.
+          Anyone will be able to launch their own memecoin on Bitcoin the same way.
+        </p>
+        <p class="fineprint mono fair-note">Fair launch: no presale, no team allocation, no early access — same open bonding-curve price for everyone, first come first served.</p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num stamp">21,000,000</div>
+            <div class="hero-stat-label mono">MAX SUPPLY</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num stamp">1,000</div>
+            <div class="hero-stat-label mono">PER MINT</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num stamp">21,000</div>
+            <div class="hero-stat-label mono">MAX MINTS</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="coin-spin-wrap">
+          <div class="coin-badge">
+            <div class="coin-mark stamp">S</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINT -->
+    <section id="mint" class="section wrap">
+      <div class="mint-send-row">
+      <div class="panel mint-panel">
+        <div class="panel-head">
+          <h2 class="stamp">Mint panel</h2>
+          <div class="panel-head-tags">
+            <span class="tag tag-live mono">LIVE</span>
+            <span class="tag tag-fair mono">FAIR LAUNCH</span>
+          </div>
+        </div>
+
+        <div class="rowlines">
+          <div class="rowline">
+            <span class="mono rl-label">Amount per mint</span>
+            <span class="mono rl-value">1,000 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Presale / team allocation</span>
+            <span class="mono rl-value">None — 0 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Max mints</span>
+            <span class="mono rl-value">21,000</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Max supply</span>
+            <span class="mono rl-value">21,000,000 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Mint fee</span>
+            <span class="mono rl-value" id="mintFeeValue">1,700 sats</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Fee curve</span>
+            <span class="mono rl-value">+5% supply → step up, ×10 by the last mint</span>
+          </div>
+          <div class="rowline" id="userBalanceRow" style="display:none;">
+            <span class="mono rl-label">Your STOMB balance</span>
+            <span class="mono rl-value accent" id="userBalanceValue">0 STOMB</span>
+          </div>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-head">
+            <span class="mono rl-label">Number of mints</span>
+            <span class="mono slider-count" id="mintCountValue">1</span>
+          </div>
+          <input type="range" id="mintCountSlider" class="mint-slider" min="1" max="100" value="1" step="1">
+          <div class="slider-totals">
+            <div class="rowline">
+              <span class="mono rl-label">Total STOMB</span>
+              <span class="mono rl-value" id="totalStombValue">1,000 STOMB</span>
+            </div>
+            <div class="rowline">
+              <span class="mono rl-label">Total mint fee</span>
+              <span class="mono rl-value" id="totalFeeValue">1,700 sats</span>
+            </div>
+            <div class="rowline">
+              <span class="mono rl-label">Est. network fees</span>
+              <span class="mono rl-value" id="totalNetworkFeeValue">~1,700 sats</span>
+            </div>
+          </div>
+          <p class="fineprint mono" id="batchNotice" style="display:none;">Each mint is its own Bitcoin transaction — you'll approve them one by one in your wallet, back to back.</p>
+          <p class="fineprint mono chain-warn" id="chainNotice" style="display:none;">Batches over 20 mints chain unconfirmed transactions — we automatically switch to a faster fee tier for this size so the whole batch confirms before hitting Bitcoin's unconfirmed-chain limit.</p>
+          <p class="fineprint mono" id="curveNotice">Bonding curve — step 1/20 (0.0% minted): mint fee is 1,700 sats, rising every 5% minted.</p>
+        </div>
+
+        <button class="btn btn-mint stamp" id="mintBtn" disabled>Connect wallet to mint</button>
+        <p class="notice mono" id="mintNotice"></p>
+        <p class="fineprint mono">Signs &amp; broadcasts from your own wallet. Nothing held on this site.</p>
+      </div>
+
+      <div class="panel send-panel">
+        <div class="panel-head">
+          <h2 class="stamp">Send STOMB</h2>
+          <span class="tag tag-fair mono">MULTI-SEND</span>
+        </div>
+        <p class="fineprint mono" style="text-align:left; margin: -6px 0 16px;">Send STOMB you already hold to several addresses in one signed transaction.</p>
+
+        <div id="sendRecipients" class="send-recipients"></div>
+        <button type="button" class="btn btn-ghost stamp" id="addRecipientBtn" style="width:100%; margin: 4px 0 16px;">+ Add recipient</button>
+
+        <div class="rowlines" style="margin-bottom: 14px;">
+          <div class="rowline">
+            <span class="mono rl-label">Total STOMB to send</span>
+            <span class="mono rl-value" id="sendTotalValue">0 STOMB</span>
+          </div>
+          <div class="rowline">
+            <span class="mono rl-label">Est. network fee</span>
+            <span class="mono rl-value" id="sendFeeValue">~0 sats</span>
+          </div>
+        </div>
+
+        <button class="btn btn-mint stamp" id="sendBtn" disabled>Connect wallet to send</button>
+        <p class="notice mono" id="sendNotice"></p>
+        <p class="fineprint mono">One Rune transfer transaction, multiple edicts. Signs &amp; broadcasts from your own wallet.</p>
+      </div>
+      </div>
+    </section>
+
+    <!-- BONDING CURVE -->
+    <section id="curve" class="section wrap">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="stamp">Bonding curve — reward for early believers</h2>
+          <span class="tag tag-live mono">×10 OVER THE MINT</span>
+        </div>
+        <p class="lede-sm" style="margin-top: -6px;">
+          The mint fee starts at 1,700 sats and steps up every 5% of the supply minted, ending ×10 higher at
+          17,000 sats on the very last mints. Mint early, pay less — it's our way of rewarding the people who
+          show up first and believe in STOMB before anyone else does.
+        </p>
+        <div class="curve-chart" id="curveChart">
+          <div class="curve-bar" data-step="0" style="height:14px;"></div>
+          <div class="curve-bar" data-step="1" style="height:16px;"></div>
+          <div class="curve-bar" data-step="2" style="height:18px;"></div>
+          <div class="curve-bar" data-step="3" style="height:20px;"></div>
+          <div class="curve-bar" data-step="4" style="height:23px;"></div>
+          <div class="curve-bar" data-step="5" style="height:26px;"></div>
+          <div class="curve-bar" data-step="6" style="height:29px;"></div>
+          <div class="curve-bar" data-step="7" style="height:33px;"></div>
+          <div class="curve-bar" data-step="8" style="height:37px;"></div>
+          <div class="curve-bar" data-step="9" style="height:42px;"></div>
+          <div class="curve-bar" data-step="10" style="height:47px;"></div>
+          <div class="curve-bar" data-step="11" style="height:53px;"></div>
+          <div class="curve-bar" data-step="12" style="height:60px;"></div>
+          <div class="curve-bar" data-step="13" style="height:68px;"></div>
+          <div class="curve-bar" data-step="14" style="height:76px;"></div>
+          <div class="curve-bar" data-step="15" style="height:86px;"></div>
+          <div class="curve-bar" data-step="16" style="height:97px;"></div>
+          <div class="curve-bar" data-step="17" style="height:110px;"></div>
+          <div class="curve-bar" data-step="18" style="height:124px;"></div>
+          <div class="curve-bar" data-step="19" style="height:140px;"></div>
+        </div>
+        <div class="curve-axis mono">
+          <span>0% minted<br>1,700 sats</span>
+          <span>50% minted<br>5,712 sats</span>
+          <span>100% minted<br>17,000 sats</span>
+        </div>
+        <p class="fineprint mono" id="curveNoticeSection">Bonding curve — step 1/20 (0.0% minted): mint fee is 1,700 sats, rising every 5% minted.</p>
+      </div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section id="progress" class="section wrap">
+      <div class="panel">
+        <h2 class="stamp">Progress</h2>
+        <div class="gaugewrap">
+          <div class="linebar"><div class="linebarfill" id="lineFill"></div></div>
+          <div class="gaugepct mono" id="gaugeSub2">0 / 21,000,000 STOMB · 0%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOLDERS -->
+    <section id="holders" class="section wrap">
+      <div class="panel">
+        <h2 class="stamp">Holders</h2>
+        <div class="mono" id="holdersCount" style="display:none; font-size: 28px; font-weight: 700; margin: 6px 0 4px;"></div>
+        <div class="empty-state mono" id="holdersEmptyState">Holder leaderboard opens once minting is live on-chain in force. Check back soon.</div>
+      </div>
+    </section>
+
+    <!-- CREATE A TOKEN -->
+    <section id="create" class="section wrap">
+      <div class="panel panel-locked">
+        <div class="panel-head">
+          <h2 class="stamp">Create your own memecoin</h2>
+          <span class="tag tag-soon mono">COMING SOON</span>
+        </div>
+        <p class="lede-sm">
+          The next step for StombFun: a builder that lets anyone etch and fair-mint their own Bitcoin memecoin —
+          same non-custodial, wallet-signed flow as STOMB, no code required.
+        </p>
+        <button class="btn btn-ghost stamp" disabled>Launch a token — locked</button>
+      </div>
+    </section>
+
+    <!-- MARKETPLACE PREVIEW -->
+    <section id="marketplace" class="section wrap">
+      <div class="panel-head" style="margin-bottom: 18px;">
+        <h2 class="stamp section-title" style="margin: 0;">Marketplace — preview</h2>
+        <span class="tag tag-soon mono">COMING SOON</span>
+      </div>
+      <p class="lede-sm" style="margin-bottom: 24px;">
+        A look at what token discovery could look like once the marketplace ships — every card below is a
+        fictional example, not a real token.
+      </p>
+
+      <div class="market-grid">
+
+        <div class="market-card hard">
+          <div class="market-card-top">
+            <div class="market-badge" style="background:#FF4620;">C</div>
+            <div class="market-actions mono">CA</div>
+          </div>
+          <div class="market-ticker mono">$CRUMB</div>
+          <div class="market-name">Crumb Cat</div>
+          <div class="market-cap stamp">$3.42M</div>
+          <div class="market-pair mono">Paired with <span class="pair-tag">STOMB</span></div>
+          <div class="market-foot">
+            <span class="mono market-vol">Vol $128K</span>
+            <span class="mono market-change up">+64.2%</span>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,22 12,20 24,24 36,14 48,17 60,9 72,12 84,5 100,3" fill="none" stroke="#3BA55D" stroke-width="2"/></svg>
+        </div>
+
+        <div class="market-card hard">
+          <div class="market-card-top">
+            <div class="market-badge" style="background:#FFC53D;">A</div>
+            <div class="market-actions mono">CA</div>
+          </div>
+          <div class="market-ticker mono">$ANVIL</div>
+          <div class="market-name">Anvil Forge</div>
+          <div class="market-cap stamp">$1.15M</div>
+          <div class="market-pair mono">Paired with <span class="pair-tag">STOMB</span></div>
+          <div class="market-foot">
+            <span class="mono market-vol">Vol $54K</span>
+            <span class="mono market-change down">-12.8%</span>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,6 12,10 24,8 36,16 48,14 60,20 72,18 84,24 100,22" fill="none" stroke="#FF4620" stroke-width="2"/></svg>
+        </div>
+
+        <div class="market-card hard">
+          <div class="market-card-top">
+            <div class="market-badge" style="background:#C9F26C;">G</div>
+            <div class="market-actions mono">CA</div>
+          </div>
+          <div class="market-ticker mono">$GRIT</div>
+          <div class="market-name">Grit Miner</div>
+          <div class="market-cap stamp">$892K</div>
+          <div class="market-pair mono">Paired with <span class="pair-tag">BTC</span></div>
+          <div class="market-foot">
+            <span class="mono market-vol">Vol $31K</span>
+            <span class="mono market-change up">+8.4%</span>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,18 12,17 24,19 36,13 48,15 60,10 72,11 84,8 100,7" fill="none" stroke="#3BA55D" stroke-width="2"/></svg>
+        </div>
+
+        <div class="market-card hard">
+          <div class="market-card-top">
+            <div class="market-badge" style="background:#191510; color:#EFE7D6;">P</div>
+            <div class="market-actions mono">CA</div>
+          </div>
+          <div class="market-ticker mono">$PXL</div>
+          <div class="market-name">Pixel Punk</div>
+          <div class="market-cap stamp">$410K</div>
+          <div class="market-pair mono">Paired with <span class="pair-tag">STOMB</span></div>
+          <div class="market-foot">
+            <span class="mono market-vol">Vol $19K</span>
+            <span class="mono market-change up">+142.0%</span>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,26 12,24 24,25 36,18 48,20 60,12 72,14 84,4 100,2" fill="none" stroke="#3BA55D" stroke-width="2"/></svg>
+        </div>
+
+        <div class="market-card hard">
+          <div class="market-card-top">
+            <div class="market-badge" style="background:#FF4620;">H</div>
+            <div class="market-actions mono">CA</div>
+          </div>
+          <div class="market-ticker mono">$HODL</div>
+          <div class="market-name">Hodl Hound</div>
+          <div class="market-cap stamp">$276K</div>
+          <div class="market-pair mono">Paired with <span class="pair-tag">BTC</span></div>
+          <div class="market-foot">
+            <span class="mono market-vol">Vol $8.9K</span>
+            <span class="mono market-change down">-31.5%</span>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,4 12,8 24,7 36,14 48,12 60,20 72,18 84,25 100,27" fill="none" stroke="#FF4620" stroke-width="2"/></svg>
+        </div>
+
+        <div class="market-card hard">
+          <div class="market-card-top">
+            <div class="market-badge" style="background:#FFC53D;">S</div>
+            <div class="market-actions mono">CA</div>
+          </div>
+          <div class="market-ticker mono">$SATSY</div>
+          <div class="market-name">Satsy</div>
+          <div class="market-cap stamp">$103K</div>
+          <div class="market-pair mono">Paired with <span class="pair-tag">STOMB</span></div>
+          <div class="market-foot">
+            <span class="mono market-vol">Vol $3.1K</span>
+            <span class="mono market-change up">+21.6%</span>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="0,20 12,19 24,21 36,15 48,17 60,13 72,14 84,9 100,8" fill="none" stroke="#3BA55D" stroke-width="2"/></svg>
+        </div>
+
+      </div>
+      <a href="marketplace.html" class="mono market-more">See the full marketplace preview →</a>
+    </section>
+
+    <!-- UTILITY -->
+    <section id="utility" class="section wrap">
+      <h2 class="stamp section-title">Why hold STOMB</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num mono">↻</span>
+          <h3 class="stamp">Buyback &amp; burn</h3>
+          <p>A share of platform fees — mint fees today, marketplace fees later — buys back STOMB from the market and burns it. Supply only goes down.</p>
+        </div>
+        <div class="step">
+          <span class="step-num mono">☑</span>
+          <h3 class="stamp">Curation &amp; vote</h3>
+          <p>Holders vote on which tokens launched through StombFun get featured on the homepage — the community picks what gets visibility.</p>
+        </div>
+        <div class="step">
+          <span class="step-num mono">⛓</span>
+          <h3 class="stamp">Platform token</h3>
+          <p>STOMB is StombFun's native token — every future token creation flows through it in one way or another, the way $LAUNCH anchors a pump.fun-style platform.</p>
+        </div>
+      </div>
+      <p class="fineprint" style="text-align:left; margin-top: 18px;">Roadmap — these mechanics activate as the create-a-token builder and marketplace ship, not live yet on the mint you see above.</p>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section wrap">
+      <h2 class="stamp section-title">How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num mono">01</span>
+          <h3 class="stamp">Connect your wallet</h3>
+          <p>StombFun talks directly to your UniSat wallet. Nothing is custodied — your keys never leave your device.</p>
+        </div>
+        <div class="step">
+          <span class="step-num mono">02</span>
+          <h3 class="stamp">Build the transaction</h3>
+          <p>The page builds a real Bitcoin transaction on the CRC-20 standard — a CRC-20 output, your postage, and the mint fee.</p>
+        </div>
+        <div class="step">
+          <span class="step-num mono">03</span>
+          <h3 class="stamp">Sign &amp; broadcast</h3>
+          <p>Your wallet shows the exact amounts before you sign. One signature mints and sends — no third-party step.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP + RISK -->
+    <section id="roadmap" class="section wrap">
+      <h2 class="stamp section-title">Roadmap</h2>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <span class="tag tag-live mono">NOW</span>
+          <p>Fair-mint STOMB directly on-page, non-custodial, wallet-signed.</p>
+        </div>
+        <div class="roadmap-item">
+          <span class="tag tag-soon mono">NEXT</span>
+          <p>Holder leaderboard and live on-chain progress tracking.</p>
+        </div>
+        <div class="roadmap-item">
+          <span class="tag tag-soon mono">LATER</span>
+          <p>Create-your-own-memecoin builder — etch and fair-mint new Bitcoin tokens, no code.</p>
+        </div>
+        <div class="roadmap-item">
+          <span class="tag tag-soon mono">LATER</span>
+          <p>Marketplace with buyback &amp; burn, holder curation votes, and STOMB as the platform's native token.</p>
+        </div>
+      </div>
+
+      <div class="risk mono">
+        Risk disclosure: STOMB is an experimental CRC-20 token (built on the CRC-20 standard) with no protocol-level
+        enforcement, no guarantee of value, liquidity, or exchange listing. Minting builds and signs a real Bitcoin
+        transaction directly in your wallet — verify the amounts shown before every signature. Only mint with funds
+        you can afford to lose. Do your own research.
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer wrap mono">
+    <span class="brand-word" style="font-size:11px; font-family:'JetBrains Mono',monospace; font-weight:700;">stombfun.garden — experimental CRC-20 token, built on the CRC-20 standard</span>
+    <span>Do your own research</span>
+  </footer>
+
+  <!-- CONFIRM MODAL -->
+  <div class="modal-overlay" id="confirmOverlay">
+    <div class="modal-box">
+      <h3 id="confirmTitle" class="stamp">Confirm mint</h3>
+      <div class="modal-rows" id="confirmRows"></div>
+      <p class="modal-note">Your wallet will show the final amounts next — check them before signing.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+        <button class="btn btn-mint" id="confirmOk">Continue</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
